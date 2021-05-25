@@ -1,0 +1,23 @@
+{
+  "name": "youtube-playlist-manager",
+  "version": "1.0.0",
+  "description": "web / desktop app which helps organize youtube playlists without needing to scrub youtube manually",
+  "main": "index.js",
+  "dependencies": {
+    "concurrently": "^6.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/loooshius/YoutubePlaylistManager.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/loooshius/YoutubePlaylistManager/issues"
+  },
+  "homepage": "https://github.com/loooshius/YoutubePlaylistManager#readme"
+}
