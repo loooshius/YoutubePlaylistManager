@@ -4,8 +4,11 @@
   "description": "web / desktop app which helps organize youtube playlists without needing to scrub youtube manually",
   "main": "server.js",
   "dependencies": {
+    "@material-ui/core": "^4.11.4",
     "bcryptjs": "^2.4.3",
     "config": "^3.3.6",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-validator": "^6.11.1",
     "google-auth-library": "^7.1.0",
@@ -21,7 +24,10 @@
   "scripts": {
     "start": "node server",
     "server": "nodemon server",
-    "yt_test": "nodemon .\\middleware\\googleapi.js"
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "yt_test": "nodemon .\\middleware\\googleapi.js",
+    "yt_api_playlist": "nodemon ./middleware/googleapi_playlist.js"
   },
   "repository": {
     "type": "git",
@@ -32,5 +38,6 @@
   "bugs": {
     "url": "https://github.com/loooshius/YoutubePlaylistManager/issues"
   },
-  "homepage": "https://github.com/loooshius/YoutubePlaylistManager#readme"
+  "homepage": "https://github.com/loooshius/YoutubePlaylistManager#readme",
+  "proxy": "http://localhost:5000"
 }
