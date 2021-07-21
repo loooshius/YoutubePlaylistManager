@@ -1,0 +1,23 @@
+{
+  "name": "YoutubePlaylistManager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "config": "^3.3.6",
+    "dotenv": "^10.0.0",
+    "googleapis": "^74.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon .\\YoutubePlaylistManager\\server.js",
+    "yt_test": "nodemon .\\YoutubePlaylistManager\\middleware\\googleapi.js",
+    "yt_api_playlist": "nodemon .\\YoutubePlaylistManager\\middleware\\googleapi_playlist.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

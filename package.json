@@ -2,22 +2,42 @@
   "name": "youtube-playlist-manager",
   "version": "1.0.0",
   "description": "web / desktop app which helps organize youtube playlists without needing to scrub youtube manually",
-  "main": "index.js",
+  "main": "server.js",
   "dependencies": {
-    "concurrently": "^6.2.0"
+    "@material-ui/core": "^4.11.4",
+    "bcryptjs": "^2.4.3",
+    "config": "^3.3.6",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.11.1",
+    "google-auth-library": "^7.1.0",
+    "googleapis": "^74.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.11",
+    "request": "^2.88.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "concurrently": "^6.2.0",
+    "nodemon": "^2.0.7"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server",
+    "server": "nodemon server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "yt_test": "nodemon .\\middleware\\googleapi.js",
+    "yt_api_playlist": "nodemon ./middleware/googleapi_playlist.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/loooshius/YoutubePlaylistManager.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/loooshius/YoutubePlaylistManager/issues"
   },
-  "homepage": "https://github.com/loooshius/YoutubePlaylistManager#readme"
+  "homepage": "https://github.com/loooshius/YoutubePlaylistManager#readme",
+  "proxy": "http://localhost:5000"
 }
