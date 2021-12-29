@@ -25,6 +25,8 @@ const OAuth2 = google.auth.OAuth2;
 // @access  Public
 router.get('/', function (req, res) {
     // May need refactoring to ensure cookie data is secure.
+    console.log("RIP");
+    if (req.headers.cookie === undefined) return res.redirect('/')
     const parsedJWTCookie = req.headers.cookie.split('=');
 
     if (parsedJWTCookie[0] != 'jwt') {
@@ -48,7 +50,7 @@ router.get('/', function (req, res) {
         maxResults: 10,
     }).then((response) => {
         const { data } = response;
-        console.log(data);
+        //console.log(data);
         let items = "";
         data.items.forEach((item) => {
             items += `Playlist Name: ${item.snippet.title}\nDescription: ${item.snippet.description}\nPlaylistID: ${item.id}\n\n`;
@@ -60,5 +62,45 @@ router.get('/', function (req, res) {
     //playlist.playlistsByChannel();
     //playlist.playlistItems();
 });
+
+router.get('/:_id', 
+    async (req, res) => {
+    // May need refactoring to ensure cookie data is secure.
+
+        if (req.headers.cookie === undefined) return res.redirect('/')
+        const parsedJWTCookie = req.headers.cookie.split('=');
+    
+        if (parsedJWTCookie[0] != 'jwt') {
+            return res.redirect('/');
+        }
+    
+        // Get OAuth2 web token
+        const oauth2client = new OAuth2(
+            CONFIG.oauth2Credentials.client_id,
+            CONFIG.oauth2Credentials.client_secret,
+            CONFIG.oauth2Credentials.redirect_uris[0]
+        )
+        
+        oauth2client.credentials = jwt.verify(parsedJWTCookie[1], process.env.JWT_SECRET);
+
+        // Get channel data
+        google.youtube('v3').playlistItems.list({
+            auth: oauth2client,
+            part: 'snippet',
+            playlistId: req.params._id,
+            maxResults: 10,
+        }).then((response) => {
+            const { data } = response;
+            //console.log(data);
+            let items = "";
+            data.items.forEach((item) => {
+                items += `Playlist Name: ${item.snippet.title}\nDescription: ${item.snippet.description}\nPlaylistID: ${item.id}\n\n`;
+            })
+            res.send(data.items);
+            //return items;
+        }).catch((err) => console.log(err));
+    
+    }
+);
 
 module.exports = router;
