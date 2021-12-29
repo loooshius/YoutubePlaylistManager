@@ -1,6 +1,8 @@
 import React from 'react';
 import { makeStyles, Col, Row } from '@material-ui/core'
 import Login from '../functionality/Login.js'
+import Playlists from '../functionality/Playlists.js'
+import PlaylistItems from '../functionality/PlaylistItems.js'
 
 const FormStyle = makeStyles(() => ({
     black: {
@@ -24,6 +26,18 @@ const Landing = () => {
     const classes = FormStyle();
 
     const [channelData, setChannelData] = React.useState([]);
+    const [playlistData, setPlaylistData] = React.useState([]);
+    const [isPlaylistChosen, setIsPlaylistChosen] = React.useState(false);
+
+    const assignPlaylist = (isChosen) => {
+        console.log("Completed: " + isChosen);
+        setIsPlaylistChosen(isChosen);
+    }
+
+    const fetchedPlaylistData = (res) => {
+        console.log(res[0]);
+        setPlaylistData(res);
+    }
 
     React.useEffect(() => {
         const fetchChannelData = async () => {
@@ -56,10 +70,12 @@ const Landing = () => {
 
     return (
         <section>
-            <div className={classes.container}>
-                {channelData.map((channel, index) => 
-                    <div>{channel.snippet.title}</div>
-                )}
+            <div>
+                {
+                isPlaylistChosen 
+                    ? <PlaylistItems playlistData={playlistData} isPlaylistChosen={assignPlaylist}/>
+                    : <Playlists channelData={channelData} fetchedPlaylistData={fetchedPlaylistData} isPlaylistChosen={assignPlaylist} /> 
+                }
             </div>
             <div id="content">
 

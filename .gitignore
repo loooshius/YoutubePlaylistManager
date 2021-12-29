@@ -106,3 +106,4 @@ dist
 # testing .json file
 keys.json
 config/default.json
+config.js

@@ -12,7 +12,6 @@ app.use(cookieParser());
 const OAuth2 = google.auth.OAuth2;
 
 router.get('/', (req, res) => {
-
     const oauth2client = new OAuth2(
         CONFIG.oauth2Credentials.client_id,
         CONFIG.oauth2Credentials.client_secret,
@@ -26,10 +25,8 @@ router.get('/', (req, res) => {
     else {
         oauth2client.getToken(req.query.code, (err, token) => {
             if (err) return res.redirect('/');
-            
             res.cookie('jwt', jwt.sign(token, process.env.JWT_SECRET));
-
-            return res.redirect('/api/channels');
+            return res.redirect('/api/playlist');
         })
     }
 })
